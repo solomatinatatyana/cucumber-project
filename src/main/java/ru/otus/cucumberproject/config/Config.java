@@ -19,7 +19,6 @@ public class Config {
 
     protected WebDriver driver;
     protected MutableCapabilities options;
-    protected  static String browser = System.getProperty("browser").toUpperCase();
 
     @Autowired
     private WebApplicationService webApplicationService;
