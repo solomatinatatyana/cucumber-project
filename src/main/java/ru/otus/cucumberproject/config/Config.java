@@ -21,7 +21,6 @@ public class Config {
     protected MutableCapabilities options;
     protected  static String browser = System.getProperty("browser").toUpperCase();
 
-
     @Autowired
     private WebApplicationService webApplicationService;
 

@@ -20,7 +20,7 @@ public class MainPageStepdefs {
     @Given("I open main page")
     public void openPage() {
         mainPage.openUrl(url);
-        logger.info("open page" + url);
+        logger.info("open page " + url);
     }
 
 }
