@@ -1,14 +1,18 @@
-Feature: Login OTUS
 @LoginProfile
-
-  Scenario: Successful login
+Feature: Login OTUS
+  Background: Open main page Otus
     Given I open main page
-    #When I'am on URL "https://otus.ru/"
-    When I login with "tokio9507@mail.ru" and "TEST"
-    #Then I'am on the "My profile" page on URL ""
+    Then I'am on URL "https://otus.ru/"
 
+  @Success
+  Scenario: Successful login
+    When I login with "tokio9507@gmail.com" and "tokio9507"
+    And I go to profile
+    Then I should see "TatyanaTest"
+
+  @Fail
   Scenario: Login fail
-    When I login with "Test" and "test"
-    #Then I should see "<warning>" message
+    When I login with "tokio9507@gmail.com" and "test"
+    Then I should see error "Такая пара логин/пароль не существует" message and color is "#9a0f0f"
 
 

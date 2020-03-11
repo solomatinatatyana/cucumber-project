@@ -8,13 +8,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.test.annotation.DirtiesContext;
 import ru.otus.cucumberproject.services.driver.WebApplicationService;
 
 @PropertySource("classpath:properties/application.properties")
 @Configuration
 @ComponentScan
-@DirtiesContext
 public class Config {
 
     protected WebDriver driver;
