@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.testng.asserts.SoftAssert;
 import ru.otus.cucumberproject.pagesandblocks.pages.MainPage;
+import ru.otus.cucumberproject.pagesandblocks.pages.ProfilePage;
 
 public class MainPageStepdefs {
 
@@ -22,15 +23,11 @@ public class MainPageStepdefs {
 
     @Autowired
     private MainPage mainPage;
+    @Autowired
+    private ProfilePage profilePage;
 
     @Value("${sut.url}")
     private String url;
-
-    /*@Value("${site.login}")
-    private String login;
-
-    @Value("${site.password}")
-    private String password;*/
 
     @Given("I open main page")
     public void openPage() {
@@ -58,5 +55,17 @@ public class MainPageStepdefs {
         softAssert.assertEquals(Color.fromString(incorrectLabel.getCssValue("color")).asHex(),color,
                 "Цвет сообщения не #9a0f0f (красный)");
         softAssert.assertAll();
+    }
+
+    @When("I go to profile")
+    public void goToProfile(){
+        profilePage.goToMyProfile();
+        profilePage.goToBiography();
+    }
+
+    @When("^I drillDown to \"([^\"]*)\"$")
+    public void iDrillDownToTopic(String category) {
+        logger.info("Переходм на {}", category);
+        mainPage.onDrillDown(category);
     }
 }

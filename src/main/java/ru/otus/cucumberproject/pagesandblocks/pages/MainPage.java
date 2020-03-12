@@ -3,7 +3,6 @@ package ru.otus.cucumberproject.pagesandblocks.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import ru.otus.cucumberproject.pagesandblocks.blocks.CourseCategoryNavBar;
 
 import javax.annotation.PostConstruct;
 
@@ -20,11 +20,15 @@ public class MainPage {
     @Qualifier("chrome")
     public WebDriver driver;
 
+    @Autowired
+    public CourseCategoryNavBar courseCategoryNavBar;
+
     private By loginForm = By.cssSelector("form.new-log-reg__form.js-login");
     private By username = By.cssSelector("input[name=email]");
     private By pass = By.cssSelector("input[type=password]");
     private By submit = By.cssSelector("button[type='submit']");
     public By incorrectLabel = By.cssSelector("div.new-input-error.new-input-error_top.new-input-error_form.js-text");
+    private By cookiesAgreeButton = By.cssSelector(".cookies.js-cookie>div>button");
 
     /**Кнопка "Войти и Регистрация"*/
     @FindBy(css = "button[class='header2__auth js-open-modal']")
@@ -43,11 +47,6 @@ public class MainPage {
         login(login, password);
     }
 
-    public void doLoginError(String login, String password) {
-        login(login, password);
-
-    }
-
     private void login(String login, String password){
         loginUI(login, password);
     }
@@ -62,4 +61,14 @@ public class MainPage {
         loginFormElem.findElement(pass).sendKeys(password);
         loginFormElem.findElement(submit).click();
     }
+
+    public void onDrillDown(String tab){
+        WebElement cookies = (new WebDriverWait(driver, 50L))
+        .until(ExpectedConditions.presenceOfElementLocated(cookiesAgreeButton));
+        cookies.click();
+        WebElement tabElement = (new WebDriverWait(driver, 50L))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//a[@class='nav__item course-categories__nav-item' and @title = '"+tab+"']")));
+        tabElement.click();
+    }
+
 }

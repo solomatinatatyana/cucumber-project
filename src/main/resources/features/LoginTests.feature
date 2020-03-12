@@ -1,3 +1,4 @@
+@All
 @LoginProfile
 Feature: Login OTUS
   Background: Open main page Otus
