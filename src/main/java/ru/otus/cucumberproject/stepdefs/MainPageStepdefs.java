@@ -63,6 +63,12 @@ public class MainPageStepdefs {
         profilePage.goToBiography();
     }
 
+    /*@When("^I drillDown to \"([^\"]*)\"$")
+    public void iDrillDownToTopic(String category) {
+        logger.info("Переходм на {}", category);
+        mainPage.onDrillDown(category);
+    }*/
+
     @When("^I drillDown to \"([^\"]*)\"$")
     public void iDrillDownToTopic(String category) {
         logger.info("Переходм на {}", category);

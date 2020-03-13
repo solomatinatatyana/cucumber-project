@@ -6,7 +6,7 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 @CucumberOptions(
         features = {"src/main/resources/features/"},
         glue = {"ru.otus.cucumberproject.stepdefs"},
-        tags = {"@All"}
+        tags = {"@Contacts"}
 )
 public class CucumberProjectTestRunner extends AbstractTestNGCucumberTests {
 

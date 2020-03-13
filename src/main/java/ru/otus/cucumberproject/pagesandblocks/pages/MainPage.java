@@ -1,6 +1,7 @@
 package ru.otus.cucumberproject.pagesandblocks.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ru.otus.cucumberproject.pagesandblocks.blocks.CourseCategoryNavBar;
+import ru.otus.cucumberproject.pagesandblocks.blocks.HeaderNavBar;
 
 import javax.annotation.PostConstruct;
 
@@ -22,6 +24,9 @@ public class MainPage {
 
     @Autowired
     public CourseCategoryNavBar courseCategoryNavBar;
+    @Autowired
+    public HeaderNavBar headerNavBar;
+
 
     private By loginForm = By.cssSelector("form.new-log-reg__form.js-login");
     private By username = By.cssSelector("input[name=email]");
@@ -30,13 +35,15 @@ public class MainPage {
     public By incorrectLabel = By.cssSelector("div.new-input-error.new-input-error_top.new-input-error_form.js-text");
     private By cookiesAgreeButton = By.cssSelector(".cookies.js-cookie>div>button");
 
-    /**Кнопка "Войти и Регистрация"*/
+    /**
+     * Кнопка "Войти и Регистрация"
+     */
     @FindBy(css = "button[class='header2__auth js-open-modal']")
     public WebElement signButton;
 
     @PostConstruct
     public void init() {
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
     public void openUrl(String url) {
@@ -47,13 +54,13 @@ public class MainPage {
         login(login, password);
     }
 
-    private void login(String login, String password){
+    private void login(String login, String password) {
         loginUI(login, password);
     }
 
     private void loginUI(String login, String password) {
         this.signButton.click();
-        WebElement loginFormElem = (new WebDriverWait(driver,50L)
+        WebElement loginFormElem = (new WebDriverWait(driver, 50L)
                 .until(ExpectedConditions.visibilityOfElementLocated(loginForm)));
         loginFormElem.findElement(username).clear();
         loginFormElem.findElement(username).sendKeys(login);
@@ -62,13 +69,27 @@ public class MainPage {
         loginFormElem.findElement(submit).click();
     }
 
-    public void onDrillDown(String tab){
+    public void onDrillDown(String tab) {
         WebElement cookies = (new WebDriverWait(driver, 50L))
-        .until(ExpectedConditions.presenceOfElementLocated(cookiesAgreeButton));
+                .until(ExpectedConditions.presenceOfElementLocated(cookiesAgreeButton));
         cookies.click();
-        WebElement tabElement = (new WebDriverWait(driver, 50L))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//a[@class='nav__item course-categories__nav-item' and @title = '"+tab+"']")));
-        tabElement.click();
+        switch (tab){
+            case "Программирование":
+            case "Инфраструктура":
+            case "Информационная безопасность":
+            case "Data Science":
+            case "Управление":
+            case "Тестирование":
+                WebElement tabElement = (new WebDriverWait(driver, 50L))
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//a[@class='nav__item course-categories__nav-item' and @title = '" + tab + "']")));
+                tabElement.click();
+                break;
+            case "Контакты":
+                WebElement headerElement = (new WebDriverWait(driver, 50L))
+                        .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//a[@class = 'header2_subheader-link' and @title = '"+tab+"']")));
+                headerElement.click();
+                break;
+        }
+        //document.querySelector('a[href="/contacts/"]').click();
     }
-
 }
