@@ -24,6 +24,6 @@ public class ProfileNavSelect {
     @FindBy(xpath = "//a[@title = 'Личный кабинет']")
     public WebElement profile;
 
-    @FindBy(xpath = "//a[@title = 'Личный кабинет']")
-    public WebElement myProfile;
+    @FindBy(xpath = "//a[@title = 'Выход']")
+    public WebElement logoutButton;
 }

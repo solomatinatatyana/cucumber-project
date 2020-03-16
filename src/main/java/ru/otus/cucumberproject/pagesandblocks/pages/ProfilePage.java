@@ -51,4 +51,9 @@ public class ProfilePage {
         profileSelectElements.profile.click();
     }
 
+    public void goToSettings(){
+        WebDriverWait wait = new WebDriverWait(driver,50L);
+        wait.until(ExpectedConditions.visibilityOf(profileNavBar.settings));
+        profileNavBar.settings.click();
+    }
 }

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,6 +27,8 @@ public class MainPage {
     public CourseCategoryNavBar courseCategoryNavBar;
     @Autowired
     public HeaderNavBar headerNavBar;
+    @Autowired
+    public ProfilePage profilePage;
 
 
     private By loginForm = By.cssSelector("form.new-log-reg__form.js-login");
@@ -67,7 +70,7 @@ public class MainPage {
         loginFormElem.findElement(pass).clear();
         loginFormElem.findElement(pass).sendKeys(password);
         loginFormElem.findElement(submit).click();
-    }
+     }
 
     public void onDrillDown(String tab) {
         WebElement cookies = (new WebDriverWait(driver, 50L))
@@ -91,5 +94,13 @@ public class MainPage {
                 break;
         }
         //document.querySelector('a[href="/contacts/"]').click();
+    }
+
+    public void logout(){
+        WebDriverWait wait = new WebDriverWait(driver,50L);
+        wait.until(ExpectedConditions.visibilityOf(profilePage.profileSelect));
+        Actions builder = new Actions(driver);
+        builder.moveToElement(profilePage.profileSelect).perform();
+        profilePage.profileSelectElements.logoutButton.click();
     }
 }

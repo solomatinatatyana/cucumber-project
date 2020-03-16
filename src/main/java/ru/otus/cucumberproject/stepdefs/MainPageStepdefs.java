@@ -1,5 +1,6 @@
 package ru.otus.cucumberproject.stepdefs;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.testng.asserts.SoftAssert;
 import ru.otus.cucumberproject.pagesandblocks.pages.MainPage;
 import ru.otus.cucumberproject.pagesandblocks.pages.ProfilePage;
+import ru.otus.cucumberproject.pagesandblocks.pages.SettingsPage;
 
 public class MainPageStepdefs {
 
@@ -48,6 +50,7 @@ public class MainPageStepdefs {
 
     @Then("I should see error \"(.*)\" message and color is \"(.*)\"")
     public void checkLoginError(String message, String color){
+        logger.info("Проверяем сообщение об ошибке '{}'",message);
         WebElement incorrectLabel = (new WebDriverWait(mainPage.driver, 10))
                 .until(ExpectedConditions.visibilityOfElementLocated(mainPage.incorrectLabel));
         softAssert.assertEquals(incorrectLabel.getText(),message,
@@ -59,19 +62,27 @@ public class MainPageStepdefs {
 
     @When("I go to profile")
     public void goToProfile(){
+        logger.info("Переходим в раздел 'О себе'");
         profilePage.goToMyProfile();
         profilePage.goToBiography();
     }
 
-    /*@When("^I drillDown to \"([^\"]*)\"$")
-    public void iDrillDownToTopic(String category) {
-        logger.info("Переходм на {}", category);
-        mainPage.onDrillDown(category);
-    }*/
+    @When("I go to settings")
+    public void goToPage(){
+        logger.info("Переходим в раздел 'Настройки'");
+        profilePage.goToMyProfile();
+        profilePage.goToSettings();
+    }
 
     @When("^I drillDown to \"([^\"]*)\"$")
     public void iDrillDownToTopic(String category) {
         logger.info("Переходм на {}", category);
         mainPage.onDrillDown(category);
+    }
+
+    @When("^I logout from account$")
+    public void iLogoutFromAccount() {
+        logger.info("Разлогиниваемся");
+        mainPage.logout();
     }
 }
