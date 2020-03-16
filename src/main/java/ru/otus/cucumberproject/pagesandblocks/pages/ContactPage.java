@@ -25,6 +25,6 @@ public class ContactPage {
 
     public WebElement findNetwork(String network){
         return (new WebDriverWait(driver, 50L))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//a[@class='contacts__social hover-ic']/span[text()='"+network+"']")));
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//a[span[text()='"+ network +"']]")));
     }
 }
