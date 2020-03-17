@@ -20,7 +20,7 @@ public class ContactsPageStepdefs {
         softAssert.assertTrue(contactPage.findNetwork(network).isDisplayed(),"Такой Соц.сети нет");
         logger.info("Проверяем ссылку на соц.сеть {}", network);
         String currentLink = contactPage.findNetwork(network).getAttribute("href");
-        softAssert.assertEquals(currentLink,link, "Неверная ссылка на соц.сеть");
+        softAssert.assertTrue(currentLink.contains(link), "Неверная ссылка на соц.сеть");
         softAssert.assertAll();
         throw new PendingException();
     }

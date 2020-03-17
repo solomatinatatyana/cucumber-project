@@ -1,7 +1,6 @@
 package ru.otus.cucumberproject.pagesandblocks.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -62,6 +61,8 @@ public class MainPage {
     }
 
     private void loginUI(String login, String password) {
+        WebDriverWait wait = new WebDriverWait(driver, 50L);
+        wait.until(ExpectedConditions.visibilityOf(signButton));
         this.signButton.click();
         WebElement loginFormElem = (new WebDriverWait(driver, 50L)
                 .until(ExpectedConditions.visibilityOfElementLocated(loginForm)));

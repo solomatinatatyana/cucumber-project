@@ -31,6 +31,7 @@ public class SettingsPageStepdefs {
         softAssert.assertEquals(Color.fromString(incorrectLabel.getCssValue("color")).asHex(),color,
                 "Цвет сообщения не #960000 (красный)");
         softAssert.assertAll();
+        logger.info("Проверка пройдена успешно");
     }
 
 
