@@ -17,6 +17,6 @@ Feature: Check SocialNetworks
     |Дзен                     |https://zen.yandex.ru/id/5bbcbc1ba5bd5400a990e7d9         |
     |YouTube                  |https://www.youtube.com/channel/UCetgtvy93o3i3CvyGXKFU3g  |
     |Канал в Telegram         |https://t.me/Otusjava                                     |
-    |Группа в Telegram        |https://t.me/joinchat/              |
+    |Группа в Telegram        |https://t.me/joinchat/                                    |
 
 

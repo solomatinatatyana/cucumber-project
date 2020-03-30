@@ -14,8 +14,8 @@ Feature: Check count courses for All categories - All count and in development c
     Examples:
     |category | all count courses| courses in development|
     |Программирование           |39          |1|
-    |Инфраструктура             |21          |4|
+    |Инфраструктура             |22          |4|
     |Информационная безопасность|8           |1|
-    |Data Science               |10          |2|
-    |Управление                 |5           |0|
-    |Тестирование               |5           |2|
+    |Data Science               |11          |2|
+    |Управление                 |6           |0|
+    |Тестирование               |6           |2|

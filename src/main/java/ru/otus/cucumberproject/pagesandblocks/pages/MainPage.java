@@ -85,12 +85,12 @@ public class MainPage {
             case "Управление":
             case "Тестирование":
                 WebElement tabElement = (new WebDriverWait(driver, 50L))
-                        .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//a[@class='nav__item course-categories__nav-item' and @title = '" + tab + "']")));
+                        .until(ExpectedConditions.elementToBeClickable(By.xpath(".//a[@class='nav__item course-categories__nav-item' and @title = '" + tab + "']")));
                 tabElement.click();
                 break;
             case "Контакты":
                 WebElement headerElement = (new WebDriverWait(driver, 50L))
-                        .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//a[@class = 'header2_subheader-link' and @title = '"+tab+"']")));
+                        .until(ExpectedConditions.elementToBeClickable(By.xpath(".//a[@class = 'header2_subheader-link' and @title = '"+tab+"']")));
                 headerElement.click();
                 break;
         }

@@ -6,7 +6,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.support.Color;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,15 +39,13 @@ public class ProfilePageStepdefs {
         profilePage.choose();
     }
 
-    @Then("^I should see error message \"([^\"]*)\" with background color \"([^\"]*)\"$")
-    public void iShouldSeeErrorMessageWithBackgroundColor(String message, String color) throws Throwable {
+    @Then("^I should not see empty avatar$")
+    public void iShouldNotSeeEmptyAvatar() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(profilePage.driver, 50L);
-        wait.until(ExpectedConditions.visibilityOf(profilePage.notificationError));
-        softAssert.assertTrue(profilePage.notificationError.isDisplayed(),"Сообщение об ошибке не отображается");
-        softAssert.assertEquals(profilePage.notificationError.getText(),message,"Неверный текст сообщения");
-        softAssert.assertEquals(Color.fromString(profilePage.notificationError.getCssValue("color")).asHex(),color,
-                "Цвет сообщения не #9a0f0f (красный)");
-        softAssert.assertAll();
+        wait.until(ExpectedConditions.visibilityOf(profilePage.avatar));
+        Thread.sleep(1000);// очень плохо, но по-другому не получилось(((
+        //profilePage.isAvatarUploaded.apply(profilePage.driver);
+        Assert.assertFalse(profilePage.avatar.getAttribute("class").contains("settings-photo__photo_empty"),"Аватар не установлен");
         throw new PendingException();
     }
 }
