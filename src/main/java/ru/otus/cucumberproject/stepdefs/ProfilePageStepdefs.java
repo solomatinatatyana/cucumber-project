@@ -2,6 +2,7 @@ package ru.otus.cucumberproject.stepdefs;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.apache.logging.log4j.LogManager;
@@ -9,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import ru.otus.cucumberproject.pagesandblocks.pages.ProfilePage;
@@ -19,13 +21,21 @@ public class ProfilePageStepdefs {
     @Autowired
     private ProfilePage profilePage;
 
-    @Then("I should see \"(.*)\"")
-    public void check(String something){
+    private String profileName;
+
+    @Value("${profile.name}")
+    private String profileName1;
+
+    @Value("${profile.name2}")
+    private String profileName2;
+
+    @Then("I should see profile name profile name")
+    public void check(){
         logger.info("Проверяем имя пользователя");
         WebDriverWait wait = new WebDriverWait(profilePage.driver, 50L);
         wait.until(ExpectedConditions.visibilityOf(profilePage.firstNameTextInput));
-        Assert.assertEquals(profilePage.firstNameTextInput.getAttribute("value"),something);
-        logger.info("Проверка пройдена успешно");
+        Assert.assertEquals(profilePage.firstNameTextInput.getAttribute("value"),profileName);
+        logger.info("Проверка пройдена успешно. Имя пользователя - {}", profileName);
     }
 
     @When("^I upload photo to profile$")
@@ -47,5 +57,18 @@ public class ProfilePageStepdefs {
         //profilePage.isAvatarUploaded.apply(profilePage.driver);
         Assert.assertFalse(profilePage.avatar.getAttribute("class").contains("settings-photo__photo_empty"),"Аватар не установлен");
         throw new PendingException();
+    }
+
+    @Given("^profile name is profile name is (\\d+)$")
+    public void profileNameIsProfileNameIs(int profileCount) {
+        switch (profileCount){
+            case 1:
+                profileName = profileName1;
+                break;
+            case 2:
+                profileName = profileName2;
+                break;
+        }
+        logger.info("Имя профиля должно быть - {}", profileName);
     }
 }

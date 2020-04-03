@@ -84,7 +84,7 @@ public class MainPage {
             case "Data Science":
             case "Управление":
             case "Тестирование":
-                WebElement tabElement = (new WebDriverWait(driver, 50L))
+                WebElement tabElement = (new WebDriverWait(driver, 100L))
                         .until(ExpectedConditions.elementToBeClickable(By.xpath(".//a[@class='nav__item course-categories__nav-item' and @title = '" + tab + "']")));
                 tabElement.click();
                 break;

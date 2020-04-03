@@ -1,6 +1,5 @@
 package ru.otus.cucumberproject.stepdefs;
 
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.testng.asserts.SoftAssert;
 import ru.otus.cucumberproject.pagesandblocks.pages.MainPage;
 import ru.otus.cucumberproject.pagesandblocks.pages.ProfilePage;
-import ru.otus.cucumberproject.pagesandblocks.pages.SettingsPage;
 
 public class MainPageStepdefs {
 
@@ -31,14 +29,38 @@ public class MainPageStepdefs {
     @Value("${sut.url}")
     private String url;
 
+    @Value("${site.login}")
+    private String login;
+
+    @Value("${site.password}")
+    private String password;
+
+    @Value("${site.login2}")
+    private String login2;
+
+    @Value("${site.password2}")
+    private String password2;
+
     @Given("I open main page")
     public void openPage() {
         mainPage.openUrl(url);
         logger.info("open page " + url);
     }
 
-    @When("I login with \"(.*)\" and \"(.*)\"")
-    public void login(String login, String password){
+    @When("I login to test account")
+    public void login(){
+        mainPage.doLogin(login,password);
+        logger.info("login by user: {}", login);
+    }
+
+    @When("I login to test2 account")
+    public void login2(){
+        mainPage.doLogin(login2,password2);
+        logger.info("login by user: {}", login2);
+    }
+
+    @When("I login with \"(.*)\" password")
+    public void login(String password){
         mainPage.doLogin(login,password);
         logger.info("login by user: {}", login);
     }

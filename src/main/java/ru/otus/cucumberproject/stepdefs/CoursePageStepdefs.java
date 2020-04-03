@@ -32,10 +32,10 @@ public class CoursePageStepdefs {
         }
     }
 
-    @Then("^I check expected count \"([^\"]*)\" and \"([^\"]*)\"$")
-    public void iCheckExpectedCountAnd(int arg0, int arg1) throws Throwable {
-        softAssert.assertEquals(allCoursesCount,arg0, "отображается всего неверное количество курсов");
-        softAssert.assertEquals(coursesInDevelopmentCount,arg1, "отображается неверное количество курсов в разработке");
+    @Then("^I check expected count \"([^\"]*)\" and \"([^\"]*)\" in \"([^\"]*)\"$")
+    public void iCheckExpectedCountAnd(int arg0, int arg1, String type) throws Throwable {
+        softAssert.assertEquals(allCoursesCount,arg0, "отображается всего неверное количество курсов в разделе [" + type +"]");
+        softAssert.assertEquals(coursesInDevelopmentCount,arg1, "отображается неверное количество курсов в разработке в разделе [" + type +"]");
         softAssert.assertAll();
         throw new PendingException();
     }
